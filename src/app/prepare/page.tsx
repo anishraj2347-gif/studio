@@ -22,7 +22,7 @@ export default function PreparePage() {
             <Stethoscope className="w-6 h-6" />
             <span>PrepRx</span>
           </Link>
-          <nav className="ml-auto hidden md:flex gap-4 sm:gap-6">
+          <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
             <Link
               href="#how-it-works"
               className="text-sm font-medium hover:underline underline-offset-4"
