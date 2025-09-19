@@ -132,7 +132,7 @@ export default function LandingPage() {
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">Loved by Patients and Appreciated by Doctors</h2>
             </div>
-            <div className="mt-16 grid lg:grid-cols-2 gap-8">
+            <div className="mt-16 grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
               <Card className="bg-background">
                 <CardContent className="p-8">
                   <Quote className="w-8 h-8 text-primary mb-4" />
