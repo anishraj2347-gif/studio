@@ -25,9 +25,11 @@ export default function Home() {
             <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl mx-auto">
               Never forget symptoms, medications, or questions again during your consultation. Many patients struggle to recall key health details in the doctor's office, leading to incomplete conversations and less effective care. Our simple web app helps you organize your symptoms, medications, and questions clearly — so you and your doctor can focus on what matters most.
             </p>
-            <Button size="lg" className="mt-8">
-              Get Started Now — It’s Free and Easy!
-            </Button>
+            <Link href="#get-started">
+              <Button size="lg" className="mt-8">
+                Get Started Now — It’s Free and Easy!
+              </Button>
+            </Link>
           </div>
 
           {/* How It Works Section */}
