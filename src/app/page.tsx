@@ -37,8 +37,8 @@ export default function LandingPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative py-24 md:py-40 bg-gradient-to-b from-primary/5 to-transparent">
-          <div className="container grid md:grid-cols-2 gap-12 items-center">
+        <section className="relative w-full py-24 md:py-40 bg-gradient-to-b from-primary/5 to-transparent">
+          <div className="container mx-auto grid md:grid-cols-2 gap-12 items-center px-4 md:px-6">
             <div className="flex flex-col items-start text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-headline text-primary tracking-tight">
                 Walk into your doctor's office, fully prepared.
@@ -53,9 +53,9 @@ export default function LandingPage() {
                 </Button>
               </Link>
             </div>
-            <div className="relative h-80 md:h-full w-full">
+            <div className="relative h-80 md:h-[500px] w-full">
               <Image
-                src="https://picsum.photos/seed/doctor-consult/800/600"
+                src="https://picsum.photos/seed/doctor-consult/800/1000"
                 alt="Doctor consulting with a patient"
                 fill
                 className="object-cover rounded-2xl shadow-xl"
