@@ -56,24 +56,24 @@ export default function PreparePage() {
       <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-24">
         <div className="w-full max-w-5xl mx-auto">
           {/* Hero Section */}
-          <div className="text-center mb-24">
+          <section className="text-center py-20 md:py-32">
             <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
               <Stethoscope className="w-12 h-12 text-primary" />
             </div>
             <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">Prepare for Your Doctor Appointment with Confidence</h1>
-            <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-foreground/80 mt-6 max-w-3xl mx-auto">
               Never forget symptoms, medications, or questions again during your consultation. Our simple web app helps you organize your health details clearly — so you and your doctor can focus on what matters most.
             </p>
             <Link href="#get-started">
-              <Button size="lg" className="mt-8">
+              <Button size="lg" className="mt-10">
                 Get Started Now — It’s Free and Easy!
               </Button>
             </Link>
-          </div>
+          </section>
 
           {/* How It Works Section */}
-          <div id="how-it-works" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg scroll-mt-20">
-            <h2 className="text-3xl font-bold font-headline text-center mb-8">How Our Appointment Prep Tool Works</h2>
+          <section id="how-it-works" className="bg-card border rounded-2xl p-8 md:p-12 py-20 md:py-24 shadow-lg scroll-mt-20">
+            <h2 className="text-3xl font-bold font-headline text-center mb-12">How Our Appointment Prep Tool Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 p-4 rounded-full mb-4 ring-8 ring-primary/5">
@@ -97,11 +97,11 @@ export default function PreparePage() {
                 <p className="text-sm text-foreground/70">Review together and ensure important details aren’t missed—making your appointment smoother and more productive.</p>
               </div>
             </div>
-          </div>
+          </section>
 
            {/* Why It Matters Section */}
-          <div id="why-it-matters" className="mb-16 scroll-mt-20">
-            <h2 className="text-3xl font-bold font-headline text-center mb-8">Why Preparation Improves Your Care</h2>
+          <section id="why-it-matters" className="py-20 md:py-24 scroll-mt-20">
+            <h2 className="text-3xl font-bold font-headline text-center mb-12">Why Preparation Improves Your Care</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
               <Card className="p-6 flex flex-col items-center">
                  <HeartHandshake className="w-10 h-10 text-primary mb-4" />
@@ -132,20 +132,20 @@ export default function PreparePage() {
                  <p className="text-sm text-primary italic">"This tool was a lifesaver. I felt so much more in control during my last visit." - Jane D.</p>
               </Card>
             </div>
-          </div>
+          </section>
 
           {/* Form Section */}
-          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg scroll-mt-20">
+          <section id="get-started" className="bg-card border rounded-2xl p-8 md:p-12 py-20 md:py-24 shadow-lg scroll-mt-20">
              <div className="text-center mb-8">
               <h2 className="text-3xl font-bold font-headline">Ready for Your Next Appointment?</h2>
               <p className="text-muted-foreground mt-2">Take control of your healthcare journey today with our free, no-login tool.</p>
             </div>
             <PrepForm />
-          </div>
+          </section>
           
           {/* Testimonials Section */}
-          <div id="testimonials" className="mb-16 scroll-mt-20">
-            <h2 className="text-3xl font-bold font-headline text-center mb-8">What Users Are Saying</h2>
+          <section id="testimonials" className="py-20 md:py-24 scroll-mt-20">
+            <h2 className="text-3xl font-bold font-headline text-center mb-12">What Users Are Saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card>
                 <CardContent className="p-6">
@@ -182,11 +182,11 @@ export default function PreparePage() {
                 </CardContent>
               </Card>
             </div>
-          </div>
+          </section>
 
           {/* FAQ Section */}
-          <div id="faq" className="max-w-3xl mx-auto scroll-mt-20">
-            <h2 className="text-3xl font-bold font-headline text-center mb-8">Frequently Asked Questions</h2>
+          <section id="faq" className="max-w-3xl mx-auto py-20 md:py-24 scroll-mt-20">
+            <h2 className="text-3xl font-bold font-headline text-center mb-12">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
                 <AccordionTrigger>Is my health information secure?</AccordionTrigger>
@@ -213,7 +213,7 @@ export default function PreparePage() {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-          </div>
+          </section>
         </div>
       </main>
       <footer className="bg-card border-t w-full">
