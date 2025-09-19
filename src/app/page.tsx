@@ -196,8 +196,8 @@ export default function LandingPage() {
         <div className="container py-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} PrepRx. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0 items-center">
-            <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Terms of Service</Link>
           </div>
         </div>
       </footer>
