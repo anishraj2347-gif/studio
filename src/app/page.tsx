@@ -15,6 +15,43 @@ import { Button } from '@/components/ui/button';
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+          <Link href="#" className="flex items-center gap-2 font-bold text-lg text-primary">
+            <Stethoscope className="w-6 h-6" />
+            <span>PrepRx</span>
+          </Link>
+          <nav className="ml-auto hidden md:flex gap-4 sm:gap-6">
+            <Link
+              href="#how-it-works"
+              className="text-sm font-medium hover:underline underline-offset-4"
+            >
+              How It Works
+            </Link>
+            <Link
+              href="#why-it-matters"
+              className="text-sm font-medium hover:underline underline-offset-4"
+            >
+              Why It Matters
+            </Link>
+             <Link
+              href="#testimonials"
+              className="text-sm font-medium hover:underline underline-offset-4"
+            >
+              Testimonials
+            </Link>
+            <Link
+              href="#faq"
+              className="text-sm font-medium hover:underline underline-offset-4"
+            >
+              FAQ
+            </Link>
+            <Link href="#get-started">
+              <Button size="sm">Get Started</Button>
+            </Link>
+          </nav>
+        </div>
+      </header>
       <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-24">
         <div className="w-full max-w-5xl mx-auto">
           {/* Hero Section */}
@@ -45,7 +82,7 @@ export default function Home() {
           </div>
 
           {/* How It Works Section */}
-          <div className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-500">
+          <div id="how-it-works" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-500 scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">How Our Appointment Prep Tool Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
               <div className="flex flex-col items-center">
@@ -73,7 +110,7 @@ export default function Home() {
           </div>
 
            {/* Why It Matters Section */}
-          <div className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-700">
+          <div id="why-it-matters" className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-700 scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">Why Preparation Improves Your Care</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
               <Card className="p-6 flex flex-col items-center">
@@ -108,7 +145,7 @@ export default function Home() {
           </div>
 
           {/* Form Section */}
-          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-900">
+          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-900 scroll-mt-20">
              <div className="text-center mb-8">
               <h2 className="text-3xl font-bold font-headline">Ready for Your Next Appointment?</h2>
               <p className="text-muted-foreground mt-2">Take control of your healthcare journey today with our free, no-login tool.</p>
@@ -117,7 +154,7 @@ export default function Home() {
           </div>
           
           {/* Testimonials Section */}
-          <div className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+          <div id="testimonials" className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-1000 scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">What Users Are Saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card>
@@ -158,7 +195,7 @@ export default function Home() {
           </div>
 
           {/* FAQ Section */}
-          <div className="max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000">
+          <div id="faq" className="max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000 scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
