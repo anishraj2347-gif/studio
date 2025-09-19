@@ -37,7 +37,7 @@ export default function LandingPage() {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-32 bg-gradient-to-b from-primary/5 to-transparent">
+        <section className="relative py-24 md:py-40 bg-gradient-to-b from-primary/5 to-transparent">
           <div className="container grid md:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col items-start text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-headline text-primary tracking-tight">
@@ -66,7 +66,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 md:py-24 bg-background scroll-mt-20">
+        <section id="features" className="py-24 md:py-32 bg-background scroll-mt-20">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">Better Visits Start with Better Preparation</h2>
@@ -127,12 +127,12 @@ export default function LandingPage() {
         </section>
 
         {/* Testimonials Section */}
-        <section id="testimonials" className="py-20 md:py-24 bg-muted/50 scroll-mt-20">
+        <section id="testimonials" className="py-24 md:py-32 bg-muted/50 scroll-mt-20">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold font-headline">Loved by Patients and Appreciated by Doctors</h2>
             </div>
-            <div className="mt-12 grid lg:grid-cols-2 gap-8">
+            <div className="mt-16 grid lg:grid-cols-2 gap-8">
               <Card className="bg-background">
                 <CardContent className="p-8">
                   <Quote className="w-8 h-8 text-primary mb-4" />
@@ -182,7 +182,7 @@ export default function LandingPage() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-20 md:py-24 bg-background scroll-mt-20">
+        <section id="about" className="py-24 md:py-32 bg-background scroll-mt-20">
           <div className="container grid md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold font-headline text-primary">From a simple idea to a powerful tool.</h2>
@@ -203,7 +203,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 md:py-32 bg-primary/5">
+        <section className="py-24 md:py-40 bg-primary/5">
           <div className="container text-center">
             <h2 className="text-3xl md:text-4xl font-bold font-headline">Ready for a more confident doctor's visit?</h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
