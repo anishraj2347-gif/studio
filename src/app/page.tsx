@@ -1,6 +1,7 @@
 import PrepForm from '@/components/prep-form';
 import { Stethoscope, Lightbulb, UserCheck, FileText, Twitter, Linkedin, Facebook, Star, HeartHandshake, Pill, ShieldCheck, MessageCircle, Clock } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Accordion,
@@ -15,25 +16,36 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-24">
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-5xl mx-auto">
           {/* Hero Section */}
-          <div className="text-center mb-16">
-            <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
-              <Stethoscope className="w-12 h-12 text-primary" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-center md:text-left mb-24">
+            <div>
+              <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
+                <Stethoscope className="w-12 h-12 text-primary" />
+              </div>
+              <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">Prepare for Your Doctor Appointment with Confidence</h1>
+              <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl">
+                Never forget symptoms, medications, or questions again during your consultation. Our simple web app helps you organize your health details clearly — so you and your doctor can focus on what matters most.
+              </p>
+              <Link href="#get-started">
+                <Button size="lg" className="mt-8">
+                  Get Started Now — It’s Free and Easy!
+                </Button>
+              </Link>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">Prepare for Your Doctor Appointment with Confidence</h1>
-            <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl mx-auto">
-              Never forget symptoms, medications, or questions again during your consultation. Many patients struggle to recall key health details in the doctor's office, leading to incomplete conversations and less effective care. Our simple web app helps you organize your symptoms, medications, and questions clearly — so you and your doctor can focus on what matters most.
-            </p>
-            <Link href="#get-started">
-              <Button size="lg" className="mt-8">
-                Get Started Now — It’s Free and Easy!
-              </Button>
-            </Link>
+            <div className="relative h-80 w-full rounded-2xl overflow-hidden shadow-2xl">
+                 <Image 
+                    src="https://picsum.photos/seed/doctor/800/600"
+                    alt="Doctor and patient consultation"
+                    fill
+                    className="object-cover"
+                    data-ai-hint="doctor patient"
+                 />
+            </div>
           </div>
 
           {/* How It Works Section */}
-          <div className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg">
+          <div className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-500">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">How Our Appointment Prep Tool Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
               <div className="flex flex-col items-center">
@@ -61,7 +73,7 @@ export default function Home() {
           </div>
 
            {/* Why It Matters Section */}
-          <div className="mb-16">
+          <div className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-700">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">Why Preparation Improves Your Care</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
               <Card className="p-6 flex flex-col items-center">
@@ -96,7 +108,7 @@ export default function Home() {
           </div>
 
           {/* Form Section */}
-          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg">
+          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-900">
              <div className="text-center mb-8">
               <h2 className="text-3xl font-bold font-headline">Ready for Your Next Appointment?</h2>
               <p className="text-muted-foreground mt-2">Take control of your healthcare journey today with our free, no-login tool.</p>
@@ -105,7 +117,7 @@ export default function Home() {
           </div>
           
           {/* Testimonials Section */}
-          <div className="mb-16">
+          <div className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-1000">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">What Users Are Saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card>
@@ -146,7 +158,7 @@ export default function Home() {
           </div>
 
           {/* FAQ Section */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
@@ -194,3 +206,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
