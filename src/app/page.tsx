@@ -56,7 +56,7 @@ export default function PreparePage() {
       <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-24">
         <div className="w-full max-w-5xl mx-auto">
           {/* Hero Section */}
-          <section className="text-center py-20 md:py-32">
+          <section className="text-center py-20 md:py-24">
             <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
               <Stethoscope className="w-12 h-12 text-primary" />
             </div>
