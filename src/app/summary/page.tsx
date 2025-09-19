@@ -1,11 +1,12 @@
 
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Printer, FilePlus2, Sparkles, AlertTriangle } from 'lucide-react';
+import jsPDF from 'jspdf';
 
 interface FormData {
   symptoms: string;
@@ -19,6 +20,7 @@ export default function SummaryPage() {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [enhancedSummary, setEnhancedSummary] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
+  const summaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -42,7 +44,91 @@ export default function SummaryPage() {
   }, [router]);
 
   const handlePrint = () => {
-    window.print();
+    const doc = new jsPDF({
+      orientation: 'p',
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    // Simple text rendering with line breaks
+    const addTextWithBreaks = (text: string, x: number, y: number, options: any) => {
+        const lines = doc.splitTextToSize(text, options.maxWidth);
+        doc.text(lines, x, y);
+        return lines.length * 6; // Approximate line height
+    };
+
+    doc.setFont('Helvetica', 'bold');
+    doc.setFontSize(24);
+    doc.setTextColor(41, 12, 94); // Primary color
+    doc.text('PrepRx Summary', 15, 20);
+    
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(100, 116, 139); // Muted foreground
+    doc.text("Your guide for a productive doctor's appointment.", 15, 28);
+    
+    let currentY = 40;
+
+    if (formData) {
+        doc.setFontSize(14);
+        doc.setTextColor(31, 41, 55); // Dark gray
+        doc.text("Your Notes", 15, currentY);
+        doc.setLineWidth(0.5);
+        doc.line(15, currentY + 2, 195, currentY + 2);
+        currentY += 10;
+        
+        doc.setFontSize(10);
+        
+        doc.setFont('Helvetica', 'bold');
+        doc.text("Symptoms:", 15, currentY);
+        doc.setFont('Helvetica', 'normal');
+        currentY += addTextWithBreaks(formData.symptoms, 15, currentY + 5, { maxWidth: 180 });
+        currentY += 5;
+
+        doc.setFont('Helvetica', 'bold');
+        doc.text("Current Medications:", 15, currentY);
+        doc.setFont('Helvetica', 'normal');
+        currentY += addTextWithBreaks(formData.medications, 15, currentY + 5, { maxWidth: 180 });
+        currentY += 5;
+
+        doc.setFont('Helvetica', 'bold');
+        doc.text("Medical History & Allergies:", 15, currentY);
+        doc.setFont('Helvetica', 'normal');
+        currentY += addTextWithBreaks(formData.medicalHistory, 15, currentY + 5, { maxWidth: 180 });
+        currentY += 10;
+
+
+        // Questions for the Doctor
+        doc.setFontSize(14);
+        doc.setTextColor(31, 41, 55);
+        doc.text("Questions for the Doctor", 15, currentY);
+        doc.line(15, currentY + 2, 195, currentY + 2);
+        currentY += 10;
+        
+        doc.setFontSize(10);
+        formData.questions.split('\n').filter(q => q.trim()).forEach(question => {
+            doc.rect(15, currentY - 2, 4, 4); // Checkbox
+            addTextWithBreaks(question, 22, currentY, { maxWidth: 173 });
+            currentY += 8;
+        });
+
+        currentY += 10;
+    }
+    
+    // AI Summary
+    doc.setFillColor(245, 243, 255); // primary/10
+    doc.rect(10, currentY - 5, 190, 5, 'F');
+    doc.setFontSize(14);
+    doc.setTextColor(88, 28, 135); // Accent color
+    doc.text("AI-Enhanced Summary", 15, currentY);
+    currentY += 10;
+
+    doc.setFont('Helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(51, 65, 85);
+    addTextWithBreaks(enhancedSummary, 15, currentY, { maxWidth: 180 });
+    
+    doc.save('PrepRx_Summary.pdf');
   };
 
   const handleNewForm = () => {
@@ -98,7 +184,7 @@ export default function SummaryPage() {
         </div>
 
       {/* A4-sized container */}
-      <div className="mx-auto w-[210mm] min-h-[297mm] bg-white dark:bg-gray-800 shadow-lg p-16 print:shadow-none print:p-0">
+      <div ref={summaryRef} className="mx-auto w-[210mm] min-h-[297mm] bg-white dark:bg-gray-800 shadow-lg p-16 print:shadow-none print:p-0">
           <header className="border-b-2 border-gray-200 pb-6 mb-10">
             <h1 className="text-4xl font-bold text-primary font-headline">PrepRx Summary</h1>
             <p className="text-md text-gray-500 mt-2">Your guide for a productive doctor's appointment.</p>
