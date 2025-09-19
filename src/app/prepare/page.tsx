@@ -72,7 +72,7 @@ export default function PreparePage() {
           </div>
 
           {/* How It Works Section */}
-          <div id="how-it-works" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-500 scroll-mt-20">
+          <div id="how-it-works" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">How Our Appointment Prep Tool Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
               <div className="flex flex-col items-center">
@@ -100,7 +100,7 @@ export default function PreparePage() {
           </div>
 
            {/* Why It Matters Section */}
-          <div id="why-it-matters" className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-700 scroll-mt-20">
+          <div id="why-it-matters" className="mb-16 scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">Why Preparation Improves Your Care</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
               <Card className="p-6 flex flex-col items-center">
@@ -135,7 +135,7 @@ export default function PreparePage() {
           </div>
 
           {/* Form Section */}
-          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg animate-in fade-in slide-in-from-bottom-10 duration-900 scroll-mt-20">
+          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg scroll-mt-20">
              <div className="text-center mb-8">
               <h2 className="text-3xl font-bold font-headline">Ready for Your Next Appointment?</h2>
               <p className="text-muted-foreground mt-2">Take control of your healthcare journey today with our free, no-login tool.</p>
@@ -144,7 +144,7 @@ export default function PreparePage() {
           </div>
           
           {/* Testimonials Section */}
-          <div id="testimonials" className="mb-16 animate-in fade-in slide-in-from-bottom-10 duration-1000 scroll-mt-20">
+          <div id="testimonials" className="mb-16 scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">What Users Are Saying</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <Card>
@@ -185,7 +185,7 @@ export default function PreparePage() {
           </div>
 
           {/* FAQ Section */}
-          <div id="faq" className="max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000 scroll-mt-20">
+          <div id="faq" className="max-w-3xl mx-auto scroll-mt-20">
             <h2 className="text-3xl font-bold font-headline text-center mb-8">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
