@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/accordion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { ChatBot } from '@/components/chat-bot';
 
 export default function Home() {
   return (
@@ -240,8 +241,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      <ChatBot />
     </div>
   );
 }
-
-    
