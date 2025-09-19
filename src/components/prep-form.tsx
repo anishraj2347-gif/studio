@@ -13,6 +13,8 @@ import {
   Download,
   RotateCcw,
   Sparkles,
+  ArrowLeft,
+  ArrowRight,
 } from 'lucide-react';
 import jsPDF from 'jspdf';
 
@@ -34,6 +36,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { generateEnhancedSummary } from '@/ai/flows/reasoning-enhanced-summary';
 
@@ -48,8 +51,18 @@ type FormValues = z.infer<typeof formSchema>;
 
 type Step = 'form' | 'loading' | 'summary';
 
+const formSteps = [
+    { id: 'symptoms', label: 'Symptoms', icon: HeartPulse },
+    { id: 'medications', label: 'Current Medications', icon: Pill },
+    { id: 'medicalHistory', label: 'Medical History & Allergies', icon: FileText },
+    { id: 'questions', label: 'Questions for the Doctor', icon: HelpCircle },
+] as const;
+
+type FormStepId = (typeof formSteps)[number]['id'];
+
 export default function PrepForm() {
-  const [step, setStep] = useState<Step>('form');
+  const [appStep, setAppStep] = useState<Step>('form');
+  const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<FormValues | null>(null);
   const [enhancedSummary, setEnhancedSummary] = useState<string>('');
   const { toast } = useToast();
@@ -64,13 +77,31 @@ export default function PrepForm() {
     },
   });
 
+  async function processNextStep() {
+    const fieldName = formSteps[currentStep].id;
+    const isValid = await form.trigger(fieldName);
+    if (isValid) {
+      if (currentStep < formSteps.length - 1) {
+        setCurrentStep(currentStep + 1);
+      } else {
+        form.handleSubmit(onSubmit)();
+      }
+    }
+  }
+
+  function processPreviousStep() {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  }
+
   async function onSubmit(values: FormValues) {
-    setStep('loading');
+    setAppStep('loading');
     setFormData(values);
     try {
       const result = await generateEnhancedSummary(values);
       setEnhancedSummary(result.enhancedSummary);
-      setStep('summary');
+      setAppStep('summary');
     } catch (error) {
       console.error('AI summary generation failed:', error);
       toast({
@@ -78,7 +109,7 @@ export default function PrepForm() {
         description: 'Failed to generate AI summary. Please try again.',
         variant: 'destructive',
       });
-      setStep('form');
+      setAppStep('form');
     }
   }
 
@@ -137,12 +168,16 @@ export default function PrepForm() {
 
   const handleStartOver = () => {
     form.reset();
-    setStep('form');
+    setAppStep('form');
+    setCurrentStep(0);
     setFormData(null);
     setEnhancedSummary('');
   };
 
-  if (step === 'loading') {
+  const progress = ((currentStep + 1) / formSteps.length) * 100;
+  const currentFormStep = formSteps[currentStep];
+
+  if (appStep === 'loading') {
     return (
       <Card className="shadow-lg transition-all duration-300 animate-in fade-in">
         <CardContent className="p-10 flex flex-col items-center justify-center text-center gap-4 min-h-[400px]">
@@ -156,7 +191,7 @@ export default function PrepForm() {
     );
   }
 
-  if (step === 'summary' && formData) {
+  if (appStep === 'summary' && formData) {
     const renderWithLineBreaks = (text: string) => (
       <div className="whitespace-pre-wrap text-foreground/80">{text}</div>
     );
@@ -203,87 +238,99 @@ export default function PrepForm() {
   return (
     <Card className="shadow-lg transition-all duration-300 animate-in fade-in">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <CardHeader>
-            <CardTitle className="text-2xl font-headline">Tell us how you're feeling</CardTitle>
+            <Progress value={progress} className="w-full mb-4" />
+            <CardTitle className="text-2xl font-headline flex items-center gap-2">
+              <currentFormStep.icon className="text-primary w-6 h-6" />
+              {currentFormStep.label}
+            </CardTitle>
             <CardDescription>
-              The more details you provide, the better your summary will be.
+              {currentStep === 0 && "The more details you provide, the better your summary will be."}
+              {currentStep > 0 && `Step ${currentStep + 1} of ${formSteps.length}`}
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <FormField
-              control={form.control}
-              name="symptoms"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2 text-base"><HeartPulse className="text-primary" /> Symptoms</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="e.g., Sharp pain in my left knee, occurs after walking for 10 minutes. Started 2 weeks ago..."
-                      rows={4}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="medications"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2 text-base"><Pill className="text-primary" /> Current Medications</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="e.g., Metformin 500mg, twice a day. Aspirin 81mg, once a day."
-                      rows={3}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="medicalHistory"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2 text-base"><FileText className="text-primary" /> Medical History & Allergies</FormLabel>
-
-                  <FormControl>
-                    <Textarea
-                      placeholder="e.g., Diagnosed with Type 2 Diabetes in 2015. Allergic to Penicillin."
-                      rows={3}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="questions"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2 text-base"><HelpCircle className="text-primary" /> Questions for the Doctor</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="e.g., What are the side effects of my new medication? Are there any lifestyle changes I should make?"
-                      rows={3}
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <CardContent className="space-y-6 min-h-[200px]">
+            {currentStep === 0 && (
+              <FormField
+                control={form.control}
+                name="symptoms"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g., Sharp pain in my left knee, occurs after walking for 10 minutes. Started 2 weeks ago..."
+                        rows={6}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {currentStep === 1 && (
+              <FormField
+                control={form.control}
+                name="medications"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g., Metformin 500mg, twice a day. Aspirin 81mg, once a day."
+                        rows={6}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {currentStep === 2 && (
+              <FormField
+                control={form.control}
+                name="medicalHistory"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g., Diagnosed with Type 2 Diabetes in 2015. Allergic to Penicillin."
+                        rows={6}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {currentStep === 3 && (
+              <FormField
+                control={form.control}
+                name="questions"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g., What are the side effects of my new medication? Are there any lifestyle changes I should make?"
+                        rows={6}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </CardContent>
-          <CardFooter>
-            <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" size="lg">
-              Generate Summary
+          <CardFooter className="flex justify-between">
+            <Button type="button" variant="outline" onClick={processPreviousStep} disabled={currentStep === 0}>
+              <ArrowLeft /> Back
+            </Button>
+            <Button type="button" onClick={processNextStep} className="bg-accent text-accent-foreground hover:bg-accent/90">
+              {currentStep < formSteps.length - 1 ? 'Next' : 'Generate Summary'}
+              <ArrowRight />
             </Button>
           </CardFooter>
         </form>
