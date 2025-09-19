@@ -56,30 +56,19 @@ export default function Home() {
       <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-8 md:p-12 lg:p-24">
         <div className="w-full max-w-5xl mx-auto">
           {/* Hero Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center text-center md:text-left mb-24">
-            <div>
-              <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
-                <Stethoscope className="w-12 h-12 text-primary" />
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">Prepare for Your Doctor Appointment with Confidence</h1>
-              <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl">
-                Never forget symptoms, medications, or questions again during your consultation. Our simple web app helps you organize your health details clearly — so you and your doctor can focus on what matters most.
-              </p>
-              <Link href="#get-started">
-                <Button size="lg" className="mt-8">
-                  Get Started Now — It’s Free and Easy!
-                </Button>
-              </Link>
+          <div className="text-center mb-24">
+            <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
+              <Stethoscope className="w-12 h-12 text-primary" />
             </div>
-            <div className="relative h-80 w-full rounded-2xl overflow-hidden shadow-2xl">
-                 <Image 
-                    src="https://picsum.photos/seed/doctor/800/600"
-                    alt="Doctor and patient consultation"
-                    fill
-                    className="object-cover"
-                    data-ai-hint="doctor patient"
-                 />
-            </div>
+            <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">Prepare for Your Doctor Appointment with Confidence</h1>
+            <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl mx-auto">
+              Never forget symptoms, medications, or questions again during your consultation. Our simple web app helps you organize your health details clearly — so you and your doctor can focus on what matters most.
+            </p>
+            <Link href="#get-started">
+              <Button size="lg" className="mt-8">
+                Get Started Now — It’s Free and Easy!
+              </Button>
+            </Link>
           </div>
 
           {/* How It Works Section */}
