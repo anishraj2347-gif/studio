@@ -116,7 +116,7 @@ export default function PrepForm() {
 
   const handleDownloadPdf = () => {
     if (!formData) return;
-
+  
     const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
     const pageHeight = doc.internal.pageSize.height;
     const pageWidth = doc.internal.pageSize.width;
@@ -127,87 +127,100 @@ export default function PrepForm() {
     const titleSpacing = 5;
     const sectionSpacing = 10;
     const checkboxSize = 4;
-
+  
     const checkAndAddPage = () => {
-        if (y > pageHeight - 30) {
-            doc.addPage();
-            y = 20;
-        }
+      if (y > pageHeight - 30) {
+        doc.addPage();
+        y = 20;
+      }
     };
-
-    const addText = (text: string, fontStyle: 'bold' | 'normal' | 'italic' = 'normal', fontSize = 11) => {
-        checkAndAddPage();
-        doc.setFont('Helvetica', fontStyle);
-        doc.setFontSize(fontSize);
-        const lines = doc.splitTextToSize(text, maxWidth);
-        doc.text(lines, margin, y);
-        y += (lines.length * lineHeight);
+  
+    const addText = (
+      text: string,
+      fontStyle: 'bold' | 'normal' | 'italic' = 'normal',
+      fontSize = 11
+    ) => {
+      checkAndAddPage();
+      doc.setFont('Helvetica', fontStyle);
+      doc.setFontSize(fontSize);
+      const lines = doc.splitTextToSize(text, maxWidth);
+      doc.text(lines, margin, y);
+      y += lines.length * lineHeight;
     };
-
+  
     const addTitle = (text: string) => {
-        checkAndAddPage();
-        doc.setFont('Helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.text(text, margin, y);
-        y += lineHeight + titleSpacing;
+      checkAndAddPage();
+      doc.setFont('Helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.text(text, margin, y);
+      y += lineHeight + titleSpacing;
     };
-    
+  
     // Header
     doc.setFontSize(22);
     doc.setFont('Helvetica', 'bold');
-    doc.text('PrepRx: Doctor\'s Appointment Summary', pageWidth / 2, 15, { align: 'center' });
+    doc.text("PrepRx: Doctor's Appointment Summary", pageWidth / 2, 15, {
+      align: 'center',
+    });
     y = 30;
-
+  
     // Patient Info Section
     addTitle('Patient-Provided Information');
     addText('Symptoms:', 'bold');
     addText(formData.symptoms);
     y += titleSpacing;
-    
+  
     addText('Current Medications:', 'bold');
     addText(formData.medications);
     y += titleSpacing;
-
+  
     addText('Medical History & Allergies:', 'bold');
     addText(formData.medicalHistory);
     y += sectionSpacing;
-
+  
     // Questions Section with Checkboxes
     addTitle('Questions for the Doctor');
-    const questions = formData.questions.split('\n').filter(q => q.trim() !== '');
+    const questions = formData.questions.split('\n').filter((q) => q.trim() !== '');
     questions.forEach((question) => {
-        checkAndAddPage();
-        const checkboxY = y - (checkboxSize / 2) + 1;
-        // The CheckBox field is a standard PDF feature.
-        const cb = new (doc as any).CheckBox();
-        cb.fieldName = `question_${Math.random().toString(36).substring(7)}`;
-        cb.Rect = [margin, checkboxY, checkboxSize, checkboxSize];
-        doc.addField(cb);
+      checkAndAddPage();
+      const checkboxY = y - (checkboxSize / 2) + 1.5;
+      
+      // Draw a simple square for the checkbox
+      doc.setDrawColor(0);
+      doc.rect(margin, checkboxY, checkboxSize, checkboxSize);
 
-        doc.setFont('Helvetica', 'normal');
-        doc.setFontSize(11);
-        const questionLines = doc.splitTextToSize(question, maxWidth - (checkboxSize + 2));
-        doc.text(questionLines, margin + checkboxSize + 2, y);
-        y += questionLines.length * lineHeight + 2;
+      doc.setFont('Helvetica', 'normal');
+      doc.setFontSize(11);
+      const questionLines = doc.splitTextToSize(
+        question,
+        maxWidth - (checkboxSize + 3)
+      );
+      doc.text(questionLines, margin + checkboxSize + 3, y);
+      y += questionLines.length * lineHeight + 2;
     });
-    
+  
     y += sectionSpacing;
-
+  
     // AI Summary Section
     checkAndAddPage();
     doc.setDrawColor(200); // Light gray line
     doc.line(margin, y, pageWidth - margin, y);
     y += sectionSpacing;
-
+  
     addTitle('AI-Enhanced Summary');
     addText(enhancedSummary);
-    
+  
     // Footer Disclaimer
     y = pageHeight - 20;
     doc.setFontSize(8);
     doc.setFont('Helvetica', 'italic');
-    doc.text('Disclaimer: This tool does not provide medical advice. It is for preparation purposes only.', pageWidth/2, y, { align: 'center' });
-
+    doc.text(
+      'Disclaimer: This tool does not provide medical advice. It is for preparation purposes only.',
+      pageWidth / 2,
+      y,
+      { align: 'center' }
+    );
+  
     doc.save(`PrepRx_Summary_${new Date().toISOString().split('T')[0]}.pdf`);
   };
 
