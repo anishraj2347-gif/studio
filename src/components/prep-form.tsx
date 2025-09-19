@@ -116,49 +116,93 @@ export default function PrepForm() {
   const handleDownloadPdf = () => {
     if (!formData) return;
 
-    const doc = new jsPDF();
-    const pageHeight = doc.internal.pageSize.height || doc.internal.pageSize.getHeight();
-    const pageWidth = doc.internal.pageSize.width || doc.internal.pageSize.getWidth();
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.width;
     let y = 20;
     const margin = 15;
     const maxWidth = pageWidth - margin * 2;
-    
-    const addText = (text: string, isTitle = false) => {
+    const lineHeight = 7;
+    const titleSpacing = 5;
+    const sectionSpacing = 10;
+    const checkboxSize = 4;
+
+    const checkAndAddPage = () => {
         if (y > pageHeight - 30) {
             doc.addPage();
             y = 20;
         }
-        doc.setFont('Helvetica', isTitle ? 'bold' : 'normal');
-        doc.setFontSize(isTitle ? 14 : 11);
-        const lines = doc.splitTextToSize(text, maxWidth);
-        doc.text(lines, margin, y);
-        y += (lines.length * 7) + (isTitle ? 5 : 2);
     };
 
+    const addText = (text: string, fontStyle: 'bold' | 'normal' | 'italic' = 'normal', fontSize = 11) => {
+        checkAndAddPage();
+        doc.setFont('Helvetica', fontStyle);
+        doc.setFontSize(fontSize);
+        const lines = doc.splitTextToSize(text, maxWidth);
+        doc.text(lines, margin, y);
+        y += (lines.length * lineHeight);
+    };
+
+    const addTitle = (text: string) => {
+        checkAndAddPage();
+        doc.setFont('Helvetica', 'bold');
+        doc.setFontSize(14);
+        doc.text(text, margin, y);
+        y += lineHeight + titleSpacing;
+    };
+    
+    // Header
     doc.setFontSize(22);
     doc.setFont('Helvetica', 'bold');
     doc.text('PrepRx: Doctor\'s Appointment Summary', pageWidth / 2, 15, { align: 'center' });
     y = 30;
 
-    addText('Patient-Provided Information', true);
-    addText('Symptoms:\n' + formData.symptoms);
-    addText('Current Medications:\n' + formData.medications);
-    addText('Medical History & Allergies:\n' + formData.medicalHistory);
-    addText('Questions for the Doctor:\n' + formData.questions);
+    // Patient Info Section
+    addTitle('Patient-Provided Information');
+    addText('Symptoms:', 'bold');
+    addText(formData.symptoms);
+    y += titleSpacing;
+    
+    addText('Current Medications:', 'bold');
+    addText(formData.medications);
+    y += titleSpacing;
 
-    y+= 5;
-    if (y > pageHeight - 30) { doc.addPage(); y = 20; }
+    addText('Medical History & Allergies:', 'bold');
+    addText(formData.medicalHistory);
+    y += sectionSpacing;
+
+    // Questions Section with Checkboxes
+    addTitle('Questions for the Doctor');
+    const questions = formData.questions.split('\n').filter(q => q.trim() !== '');
+    questions.forEach((question) => {
+        checkAndAddPage();
+        const checkboxY = y - (checkboxSize / 2) + 1;
+        // The CheckBox field is a standard PDF feature.
+        const cb = new (doc as any).CheckBox();
+        cb.fieldName = `question_${Math.random().toString(36).substring(7)}`;
+        cb.Rect = [margin, checkboxY, checkboxSize, checkboxSize];
+        doc.addField(cb);
+
+        doc.setFont('Helvetica', 'normal');
+        doc.setFontSize(11);
+        const questionLines = doc.splitTextToSize(question, maxWidth - (checkboxSize + 2));
+        doc.text(questionLines, margin + checkboxSize + 2, y);
+        y += questionLines.length * lineHeight + 2;
+    });
+    
+    y += sectionSpacing;
+
+    // AI Summary Section
+    checkAndAddPage();
+    doc.setDrawColor(200); // Light gray line
     doc.line(margin, y, pageWidth - margin, y);
-    y+=10;
+    y += sectionSpacing;
 
-    addText('AI-Enhanced Summary', true);
+    addTitle('AI-Enhanced Summary');
     addText(enhancedSummary);
     
-    y += 10;
-    if (y > pageHeight - 20) {
-        doc.addPage();
-        y = 20;
-    }
+    // Footer Disclaimer
+    y = pageHeight - 20;
     doc.setFontSize(8);
     doc.setFont('Helvetica', 'italic');
     doc.text('Disclaimer: This tool does not provide medical advice. It is for preparation purposes only.', pageWidth/2, y, { align: 'center' });
