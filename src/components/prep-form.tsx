@@ -39,6 +39,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import { generateEnhancedSummary } from '@/ai/flows/reasoning-enhanced-summary';
+import { ChatBot } from './chat-bot';
 
 const formSchema = z.object({
   symptoms: z.string().min(1, 'Please describe your symptoms.'),
@@ -280,7 +281,7 @@ export default function PrepForm() {
   }
 
   return (
-    <Card className="shadow-lg transition-all duration-300 animate-in fade-in">
+    <Card className="shadow-lg transition-all duration-300 animate-in fade-in border">
       <Form {...form}>
         <form onSubmit={(e) => e.preventDefault()}>
           <CardHeader>
