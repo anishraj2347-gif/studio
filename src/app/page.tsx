@@ -25,25 +25,25 @@ export default function PreparePage() {
           <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
             <Link
               href="#how-it-works"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               How It Works
             </Link>
             <Link
               href="#why-it-matters"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               Why It Matters
             </Link>
              <Link
               href="#testimonials"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               Testimonials
             </Link>
             <Link
               href="#faq"
-              className="text-sm font-medium hover:underline underline-offset-4"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
               FAQ
             </Link>
