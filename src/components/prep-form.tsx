@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import type { z } from 'zod';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {
@@ -251,6 +251,7 @@ export default function PrepForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2 text-base"><FileText className="text-primary" /> Medical History & Allergies</FormLabel>
+
                   <FormControl>
                     <Textarea
                       placeholder="e.g., Diagnosed with Type 2 Diabetes in 2015. Allergic to Penicillin."
