@@ -1,5 +1,5 @@
 import PrepForm from '@/components/prep-form';
-import { Stethoscope, Lightbulb, UserCheck, FileText, Twitter, Linkedin, Facebook, Star } from 'lucide-react';
+import { Stethoscope, Lightbulb, UserCheck, FileText, Twitter, Linkedin, Facebook, Star, HeartHandshake, Pill, ShieldCheck, MessageCircle, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
@@ -20,41 +21,84 @@ export default function Home() {
             <div className="inline-block bg-primary/10 p-4 rounded-full mb-4">
               <Stethoscope className="w-12 h-12 text-primary" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">PrepRx</h1>
-            <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-2xl mx-auto">
-              Transform your anxiety into confidence. Your personal assistant for a productive and stress-free doctor's visit.
+            <h1 className="text-5xl md:text-6xl font-bold font-headline text-primary tracking-tight">Prepare for Your Doctor Appointment with Confidence</h1>
+            <p className="text-lg md:text-xl text-foreground/80 mt-4 max-w-3xl mx-auto">
+              Never forget symptoms, medications, or questions again during your consultation. Many patients struggle to recall key health details in the doctor's office, leading to incomplete conversations and less effective care. Our simple web app helps you organize your symptoms, medications, and questions clearly — so you and your doctor can focus on what matters most.
             </p>
+            <Button size="lg" className="mt-8">
+              Get Started Now — It’s Free and Easy!
+            </Button>
           </div>
 
-          {/* How It Works & Form Section */}
+          {/* How It Works Section */}
           <div className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg">
-            <h2 className="text-3xl font-bold font-headline text-center mb-8">Get Your Personalized Summary</h2>
+            <h2 className="text-3xl font-bold font-headline text-center mb-8">How Our Appointment Prep Tool Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mb-8">
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 p-4 rounded-full mb-4 ring-8 ring-primary/5">
                   <FileText className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">1. Fill in Details</h3>
-                <p className="text-sm text-foreground/70">Answer a few simple questions about your symptoms, medications, and history.</p>
+                <h3 className="text-lg font-semibold mb-2">Step 1: Enter Details</h3>
+                <p className="text-sm text-foreground/70">Enter your symptoms, medications, medical history, and questions in an easy-to-use form.</p>
               </div>
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 p-4 rounded-full mb-4 ring-8 ring-primary/5">
                   <Lightbulb className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">2. Get AI Summary</h3>
-                <p className="text-sm text-foreground/70">Our AI organizes your notes into a clear, structured summary for your doctor.</p>
+                <h3 className="text-lg font-semibold mb-2">Step 2: Generate Summary</h3>
+                <p className="text-sm text-foreground/70">Generate a clean, printable summary of your health updates to take to your doctor.</p>
               </div>
               <div className="flex flex-col items-center">
                 <div className="bg-primary/10 p-4 rounded-full mb-4 ring-8 ring-primary/5">
                   <UserCheck className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">3. Be Prepared</h3>
-                <p className="text-sm text-foreground/70">Walk into your appointment feeling confident, prepared, and ready to talk.</p>
+                <h3 className="text-lg font-semibold mb-2">Step 3: Review Together</h3>
+                <p className="text-sm text-foreground/70">Review together and ensure important details aren’t missed—making your appointment smoother and more productive.</p>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground text-center mt-8 mb-6">
-              Fill out the details below to generate a clear, structured summary for your appointment.
-            </p>
+          </div>
+
+           {/* Why It Matters Section */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold font-headline text-center mb-8">Why Preparation Improves Your Care</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
+              <Card className="p-6 flex flex-col items-center">
+                 <HeartHandshake className="w-10 h-10 text-primary mb-4" />
+                 <h3 className="font-semibold mb-2">Capture Symptoms</h3>
+                 <p className="text-sm text-muted-foreground">Capture important symptoms you may forget in the moment.</p>
+              </Card>
+              <Card className="p-6 flex flex-col items-center">
+                 <Pill className="w-10 h-10 text-primary mb-4" />
+                 <h3 className="font-semibold mb-2">Track Medications</h3>
+                 <p className="text-sm text-muted-foreground">Keep track of medications and dosages accurately.</p>
+              </Card>
+              <Card className="p-6 flex flex-col items-center">
+                 <MessageCircle className="w-10 h-10 text-primary mb-4" />
+                 <h3 className="font-semibold mb-2">Clarify Questions</h3>
+                 <p className="text-sm text-muted-foreground">Clarify your questions and concerns beforehand.</p>
+              </Card>
+              <Card className="p-6 flex flex-col items-center">
+                 <ShieldCheck className="w-10 h-10 text-primary mb-4" />
+                 <h3 className="font-semibold mb-2">Enhance Communication</h3>
+                 <p className="text-sm text-muted-foreground">Enhance communication with your doctor for better diagnosis.</p>
+              </Card>
+              <Card className="p-6 flex flex-col items-center">
+                 <Clock className="w-10 h-10 text-primary mb-4" />
+                 <h3 className="font-semibold mb-2">Save Time & Reduce Anxiety</h3>
+                 <p className="text-sm text-muted-foreground">Save time and reduce anxiety during appointments.</p>
+              </Card>
+              <Card className="p-6 bg-primary/10 flex flex-col items-center justify-center">
+                 <p className="text-sm text-primary italic">"This tool was a lifesaver. I felt so much more in control during my last visit." - Jane D.</p>
+              </Card>
+            </div>
+          </div>
+
+          {/* Form Section */}
+          <div id="get-started" className="bg-card border rounded-2xl p-6 md:p-10 mb-16 shadow-lg">
+             <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold font-headline">Ready for Your Next Appointment?</h2>
+              <p className="text-muted-foreground mt-2">Take control of your healthcare journey today with our free, no-login tool.</p>
+            </div>
             <PrepForm />
           </div>
           
@@ -116,40 +160,33 @@ export default function Home() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>Do I have to answer all the questions?</AccordionTrigger>
+                <AccordionTrigger>Is this service free to use?</AccordionTrigger>
                 <AccordionContent>
-                  For the best results, we recommend filling out each section. The more detailed your input, the more comprehensive and helpful your AI-generated summary will be.
+                  Yes, our core features are completely free. We believe everyone should have access to tools that help them manage their health effectively.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>Can I edit the summary after it's generated?</AccordionTrigger>
+                <AccordionTrigger>How long does it take to prepare a summary?</AccordionTrigger>
                 <AccordionContent>
-                  Currently, the summary is generated as a final document for clarity. However, you can always go back and adjust your inputs to generate a new summary if you forgot to add something.
+                  It only takes a few minutes to fill out the form. The AI-enhanced summary is generated almost instantly, saving you time and stress before your appointment.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
           </div>
         </div>
       </main>
-      <footer className="bg-secondary text-secondary-foreground py-8 mt-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex justify-center gap-6 mb-4">
-            <Link href="#" className="hover:text-primary transition-colors">About Us</Link>
+      <footer className="bg-card border-t w-full">
+        <div className="max-w-4xl mx-auto py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} PrepRx. All rights reserved.</p>
+          <div className="flex gap-4 mt-4 md:mt-0 items-center">
             <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary transition-colors">Contact</Link>
+            <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>
+            <div className="flex gap-2">
+              <Link href="#" className="hover:text-primary transition-colors"><Twitter /></Link>
+              <Link href="#" className="hover:text-primary transition-colors"><Linkedin /></Link>
+              <Link href="#" className="hover:text-primary transition-colors"><Facebook /></Link>
+            </div>
           </div>
-          <div className="flex justify-center gap-4 mb-4">
-            <Link href="#" aria-label="Twitter">
-                <Twitter className="h-6 w-6 text-foreground/70 hover:text-primary transition-colors" />
-            </Link>
-            <Link href="#" aria-label="Facebook">
-                <Facebook className="h-6 w-6 text-foreground/70 hover:text-primary transition-colors" />
-            </Link>
-            <Link href="#" aria-label="LinkedIn">
-                <Linkedin className="h-6 w-6 text-foreground/70 hover:text-primary transition-colors" />
-            </Link>
-          </div>
-          <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} PrepRx. All Rights Reserved.</p>
         </div>
       </footer>
     </div>
